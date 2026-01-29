@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Blood_Pressure_Diastolic__c</fullName>
+    <label>Blood Pressure Diastolic</label>
+    <required>false</required>
+    <type>Number</type>
+    <precision>3</precision>
+    <scale>0</scale>
+    <externalId>false</externalId>
+    <trackTrending>false</trackTrending>
+    <unique>false</unique>
+</CustomField>

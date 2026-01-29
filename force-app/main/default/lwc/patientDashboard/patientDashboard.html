@@ -1,0 +1,136 @@
+<template>
+    <lightning-card title="Patient Care Dashboard" icon-name="standard:account">
+        <div slot="actions">
+            <lightning-button
+                label="Refresh"
+                onclick={handleRefresh}
+                disabled={isLoading}>
+            </lightning-button>
+        </div>
+
+        <div class="slds-card__body slds-card__body_inner">
+            <template if:true={isLoading}>
+                <lightning-spinner alternative-text="Loading..."></lightning-spinner>
+            </template>
+
+            <template if:false={isLoading}>
+                <!-- Latest Vital Signs Summary -->
+                <div class="slds-grid slds-wrap slds-gutters slds-m-bottom_medium">
+                    <div class="slds-col slds-size_1-of-1">
+                        <h2 class="slds-text-heading_medium slds-m-bottom_small">
+                            <lightning-icon icon-name="standard:avatar" size="small"></lightning-icon>
+                            Latest Vital Signs
+                        </h2>
+
+                        <template if:true={hasLatestVital}>
+                            <div class="slds-box slds-theme_shade">
+                                <div class="slds-grid slds-wrap slds-gutters_small">
+                                    <div class="slds-col slds-size_1-of-2 slds-medium-size_1-of-4">
+                                        <div class="slds-text-body_small slds-text-color_weak">Blood Pressure</div>
+                                        <div class="slds-text-heading_small">
+                                            {latestVital.Blood_Pressure_Systolic__c}/{latestVital.Blood_Pressure_Diastolic__c}
+                                        </div>
+                                    </div>
+                                    <div class="slds-col slds-size_1-of-2 slds-medium-size_1-of-4">
+                                        <div class="slds-text-body_small slds-text-color_weak">Heart Rate</div>
+                                        <div class="slds-text-heading_small">{latestVital.Heart_Rate__c} BPM</div>
+                                    </div>
+                                    <div class="slds-col slds-size_1-of-2 slds-medium-size_1-of-4">
+                                        <div class="slds-text-body_small slds-text-color_weak">Temperature</div>
+                                        <div class="slds-text-heading_small">{latestVital.Temperature__c}°F</div>
+                                    </div>
+                                    <div class="slds-col slds-size_1-of-2 slds-medium-size_1-of-4">
+                                        <div class="slds-text-body_small slds-text-color_weak">O2 Saturation</div>
+                                        <div class="slds-text-heading_small">{latestVital.Oxygen_Saturation__c}%</div>
+                                    </div>
+                                </div>
+                                <div class="slds-m-top_small">
+                                    <lightning-badge
+                                        label={latestVital.Alert_Level__c}
+                                        class={getAlertClass}>
+                                    </lightning-badge>
+                                    <span class="slds-m-left_small slds-text-body_small slds-text-color_weak">
+                                        Recorded: {latestVital.Recorded_Date_Time__c}
+                                    </span>
+                                </div>
+                            </div>
+                        </template>
+
+                        <template if:false={hasLatestVital}>
+                            <div class="slds-text-color_weak slds-m-top_small">
+                                No vital signs recorded
+                            </div>
+                        </template>
+                    </div>
+                </div>
+
+                <!-- Upcoming Appointments -->
+                <div class="slds-grid slds-wrap slds-gutters slds-m-bottom_medium">
+                    <div class="slds-col slds-size_1-of-1">
+                        <h2 class="slds-text-heading_medium slds-m-bottom_small">
+                            <lightning-icon icon-name="standard:event" size="small"></lightning-icon>
+                            Upcoming Appointments
+                        </h2>
+
+                        <template if:true={hasUpcomingAppointments}>
+                            <div class="slds-box">
+                                <template for:each={upcomingAppointments} for:item="apt">
+                                    <div key={apt.Id} class="slds-p-around_small slds-border_bottom">
+                                        <div class="slds-grid">
+                                            <div class="slds-col slds-size_8-of-12">
+                                                <div class="slds-text-heading_small">{apt.Type__c}</div>
+                                                <div class="slds-text-body_small slds-text-color_weak">
+                                                    Provider: {apt.Provider__r.Name} ({apt.Provider__r.Specialty__c})
+                                                </div>
+                                                <div class="slds-text-body_small slds-text-color_weak">
+                                                    Location: {apt.Location__c}
+                                                </div>
+                                            </div>
+                                            <div class="slds-col slds-size_4-of-12 slds-text-align_right">
+                                                <div class="slds-text-body_small">
+                                                    {apt.Appointment_Date_Time__c}
+                                                </div>
+                                                <lightning-badge label={apt.Status__c}></lightning-badge>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </template>
+                            </div>
+                        </template>
+
+                        <template if:false={hasUpcomingAppointments}>
+                            <div class="slds-text-color_weak slds-m-top_small">
+                                No upcoming appointments scheduled
+                            </div>
+                        </template>
+                    </div>
+                </div>
+
+                <!-- Recent Vitals History -->
+                <div class="slds-grid slds-wrap slds-gutters">
+                    <div class="slds-col slds-size_1-of-1">
+                        <h2 class="slds-text-heading_medium slds-m-bottom_small">
+                            <lightning-icon icon-name="standard:record" size="small"></lightning-icon>
+                            Recent Vitals History
+                        </h2>
+
+                        <template if:true={hasRecentVitals}>
+                            <lightning-datatable
+                                key-field="Id"
+                                data={recentVitals}
+                                columns={vitalsColumns}
+                                hide-checkbox-column>
+                            </lightning-datatable>
+                        </template>
+
+                        <template if:false={hasRecentVitals}>
+                            <div class="slds-text-color_weak slds-m-top_small">
+                                No vital signs history available
+                            </div>
+                        </template>
+                    </div>
+                </div>
+            </template>
+        </div>
+    </lightning-card>
+</template>

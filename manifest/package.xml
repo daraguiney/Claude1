@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <!-- Apex Classes -->
+    <types>
+        <members>AppointmentController</members>
+        <members>AppointmentControllerTest</members>
+        <members>VitalsAnalyzer</members>
+        <members>VitalsAnalyzerTest</members>
+        <name>ApexClass</name>
+    </types>
+
+    <!-- Custom Objects -->
+    <types>
+        <members>Patient__c</members>
+        <members>Care_Plan__c</members>
+        <members>Appointment__c</members>
+        <members>Vital_Signs__c</members>
+        <members>Medication__c</members>
+        <members>Provider__c</members>
+        <members>Medical_Note__c</members>
+        <name>CustomObject</name>
+    </types>
+
+    <!-- Lightning Web Components -->
+    <types>
+        <members>patientDashboard</members>
+        <name>LightningComponentBundle</name>
+    </types>
+
+    <!-- Permission Sets -->
+    <types>
+        <members>Healthcare_Provider</members>
+        <members>Nurse_Practitioner</members>
+        <members>Administrative_Staff</members>
+        <members>Patient_Portal_User</members>
+        <name>PermissionSet</name>
+    </types>
+
+    <!-- Custom Tabs (will be created automatically for custom objects) -->
+    <types>
+        <members>Patient__c</members>
+        <members>Appointment__c</members>
+        <members>Provider__c</members>
+        <members>Medication__c</members>
+        <name>CustomTab</name>
+    </types>
+
+    <version>65.0</version>
+</Package>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Patient__c</fullName>
+    <label>Patient</label>
+    <referenceTo>Patient__c</referenceTo>
+    <relationshipLabel>Vital Signs</relationshipLabel>
+    <relationshipName>Vital_Signs</relationshipName>
+    <relationshipOrder>0</relationshipOrder>
+    <reparentableMasterDetail>false</reparentableMasterDetail>
+    <type>MasterDetail</type>
+    <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    <externalId>false</externalId>
+    <trackTrending>false</trackTrending>
+</CustomField>

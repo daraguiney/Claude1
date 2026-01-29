@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Prescribing_Provider__c</fullName>
+    <label>Prescribing Provider</label>
+    <referenceTo>Provider__c</referenceTo>
+    <relationshipLabel>Prescribed Medications</relationshipLabel>
+    <relationshipName>Prescribed_Medications</relationshipName>
+    <required>false</required>
+    <type>Lookup</type>
+    <externalId>false</externalId>
+    <trackTrending>false</trackTrending>
+</CustomField>
